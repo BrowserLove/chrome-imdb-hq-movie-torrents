@@ -25,6 +25,7 @@ $(document).ready(function() {
             if(this.MovieList[0].ImdbCode == movie_selected.movie_id){
                 json_yify = this;
                 add_yify_link(movie_selected, this);
+                //console.log("Senas");
                 return true;
             }
         });
@@ -38,6 +39,15 @@ $(document).ready(function() {
             url: "https://yts.re/api/listimdb.json?imdb_id=" + movie_selected.movie_id
         }).done(function (json_yify) {
             if (json_yify.MovieCount > 0) {
+                var old_movie_list = json_yify.MovieList;
+                json_yify.MovieList = $.map(old_movie_list, function(movie_list){
+                    return {
+                        TorrentMagnetUrl: movie_list.TorrentMagnetUrl,
+                        Quality: movie_list.Quality
+                    }
+                });
+                //console.log(json_yify);
+                //console.log("Naujas");
                 yify_movies.push(json_yify);
                 $.cookie("yify_movies", JSON.stringify(yify_movies));
 
@@ -61,5 +71,6 @@ $(document).ready(function() {
     var grabbed_movie_ids = grab_movie_ids();
     $.each(grabbed_movie_ids, function(n, value){
         add_yify_links(this);
+        return;
     });
 });
