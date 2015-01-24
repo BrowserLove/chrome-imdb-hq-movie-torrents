@@ -43,7 +43,7 @@ $(document).ready(function() {
 
                 add_yify_link(movie_selected, json_yify);
             }
-            setInterval(function(){  }, 200);
+            //setInterval(function(){  }, 200);
         });
     }
     function add_yify_link(movie_selected, json_yify) {
