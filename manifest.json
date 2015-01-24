@@ -1,0 +1,15 @@
+{
+  "name": "jQuery Yify Checker",
+  "version": "1",
+  "manifest_version": 2,
+  "description": "Manipulate the DOM when the page is done loading",
+  "browser_action": {
+    "name": "Manipulate DOM",
+    "icons": ["icon.png"],
+    "default_icon": "icon.png"
+  },
+  "content_scripts": [ {
+    "js": [ "jquery.min.js", "background.js" ],
+    "matches": [ "*://www.imdb.com/list/*"]
+  }]
+}
