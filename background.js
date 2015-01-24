@@ -42,6 +42,7 @@ $(document).ready(function() {
                 var old_movie_list = json_yify.MovieList;
                 json_yify.MovieList = $.map(old_movie_list, function(movie_list){
                     return {
+                        ImdbCode: movie_list.ImdbCode,
                         TorrentMagnetUrl: movie_list.TorrentMagnetUrl,
                         Quality: movie_list.Quality
                     }
