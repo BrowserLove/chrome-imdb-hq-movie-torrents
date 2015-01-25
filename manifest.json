@@ -9,7 +9,7 @@
     "default_icon": "icon.png"
   },
   "content_scripts": [ {
-    "js": [ "jquery.min.js", "jquery.cookie.min.js", "background.js" ],
+    "js": [ "jquery.min.js", "jquery.inview.min.js", "background.js" ],
     "matches": [ "*://www.imdb.com/list/*"]
   }]
 }

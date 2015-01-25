@@ -1,77 +1,47 @@
 $(document).ready(function() {
-    yify_movies = $.cookie("yify_movies");
-    if(yify_movies == undefined){
-        yify_movies = [];
-    }
-    else{
-        yify_movies = JSON.parse(yify_movies);
-    }
-
-    function grab_movie_ids() {
-        return $.makeArray(
-            $(".list.detail > .list_item > .image > a").map(function (n) {
-                return {
-                    //number: $(this).parent().parent().first().children("div.number").first().text().match(/[0-9]+/)[0],
-                    number_in_list: n,
-                    movie_id: $(this).children('div').first().attr('data-const').toString()
-                };
-            })
-        );
-    }
     function add_yify_links(movie_selected) {
-        json_yify = "";
-
-        $.each(yify_movies, function() {
-            if(this.MovieList[0].ImdbCode == movie_selected.movie_id){
-                json_yify = this;
-                add_yify_link(movie_selected, this);
-                //console.log("Senas");
-                return true;
-            }
-        });
-
-        if(json_yify != ""){
-            return true;
-        }
-
         $.ajax({
+            cache: true,
             type: "GET",
-            url: "https://yts.re/api/listimdb.json?imdb_id=" + movie_selected.movie_id
+            url: "https://yts.re/api/listimdb.json?imdb_id=" + movie_selected.id,
+            dataType: "json"
         }).done(function (json_yify) {
             if (json_yify.MovieCount > 0) {
-                var old_movie_list = json_yify.MovieList;
-                json_yify.MovieList = $.map(old_movie_list, function(movie_list){
-                    return {
-                        ImdbCode: movie_list.ImdbCode,
-                        TorrentMagnetUrl: movie_list.TorrentMagnetUrl,
-                        Quality: movie_list.Quality
-                    }
-                });
-                //console.log(json_yify);
-                //console.log("Naujas");
-                yify_movies.push(json_yify);
-                $.cookie("yify_movies", JSON.stringify(yify_movies));
-
-                add_yify_link(movie_selected, json_yify);
+                append_yify_links(movie_selected, json_yify);
             }
-            //setInterval(function(){  }, 200);
         });
     }
-    function add_yify_link(movie_selected, json_yify) {
-        var list_append_el = $('.list.detail > .list_item')
-            .eq(movie_selected.number_in_list).children('.info').first().children('.rating').first();
-
+    function append_yify_links(movie_selected, json_yify) {
         var links = $.map(json_yify.MovieList, function(movie){
             return '<a href="' + movie.TorrentMagnetUrl + '">' + movie.Quality + '</a>';
         });
 
-        var links_string = "<div class='secondary'><span>Qualities available for download (magnet link): </span>" + links.join(' ') + "</div>";
-        list_append_el.after(links_string);
+        var links_string = "<div class='secondary'><span>Available for download (magnet link): </span>" + links.join(' ') + "</div>";
+        movie_selected.append_after.after(links_string);
     }
 
-    var grabbed_movie_ids = grab_movie_ids();
-    $.each(grabbed_movie_ids, function(n, value){
-        add_yify_links(this);
-        return;
+    var ListItem = function(list_element){
+        this.listElement = list_element;
+        this.index = this.listElement.index();
+
+        this.getMovieName = function(){
+            return this.listElement.children('div.info').children('b').children('a').text();
+        }
+        this.getMovieId = function(){
+            return this.listElement.children('.image').children('a').children('div').attr('data-const');
+        }
+        this.getAppendAfter = function(){
+            return this.listElement.children('.info').first().children('.rating');
+        }
+
+        this.name = this.getMovieName();
+        this.id = this.getMovieId();
+        this.append_after = this.getAppendAfter();
+    }
+
+    $('div.list.detail div.list_item').one('inview', function(e, isInView){
+        if(isInView) {
+            add_yify_links(new ListItem($(this)));
+        }
     });
 });
