@@ -3,11 +3,6 @@
   "version": "1",
   "manifest_version": 2,
   "description": "Adds links to available YIFT downloads (720p, 1080p, etc.) in IMDb list or title page.",
-  "browser_action": {
-    "name": "Manipulate DOM",
-    "icons": ["icon.png"],
-    "default_icon": "icon.png"
-  },
   "content_scripts": [ {
     "js": ["jquery.min.js", "jquery.inview.min.js", "background.js"],
     "css": ["styles.css"],
