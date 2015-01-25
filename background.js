@@ -63,16 +63,16 @@
         this.index = this.element.index();
         this.pageType = page_type;
 
-        this.getMovieName = function(){
-            switch(this.pageType){
-                case 'list':
-                    return this.element.find('div.info > b > a').text();
-                case 'title':
-                    return this.element.find('h1.header > span[itemprop="name"]').text();
-                case 'watchlist':
-                    return this.element.find('.lister-item-index').text();
-            }
-        };
+        //this.getMovieName = function(){
+        //    switch(this.pageType){
+        //        case 'list':
+        //            return this.element.find('div.info > b > a').text();
+        //        case 'title':
+        //            return this.element.find('h1.header > span[itemprop="name"]').text();
+        //        case 'watchlist':
+        //            return this.element.find('.lister-item-index').text();
+        //    }
+        //};
         this.getMovieId = function(){
             switch(this.pageType){
                 case 'list':
@@ -94,7 +94,7 @@
             }
         };
 
-        this.name = this.getMovieName();
+        //this.name = this.getMovieName();
         this.id = this.getMovieId();
         this.append_after = this.getAppendAfter();
     };
