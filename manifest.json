@@ -1,8 +1,8 @@
 {
-  "name": "YIFY magnet links for IMDb",
+  "name": "Lightweight YIFY movie downloader for IMDb",
   "version": "1",
   "manifest_version": 2,
-  "description": "Loads available movie downloads (720p, 1080p) in list or title page.",
+  "description": "Adds links to available YIFT downloads (720p, 1080p, etc.) in IMDb list or title page.",
   "browser_action": {
     "name": "Manipulate DOM",
     "icons": ["icon.png"],
