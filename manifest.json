@@ -1,8 +1,8 @@
 {
-  "name": "jQuery Yify Checker",
+  "name": "YIFY magnet links for IMDb",
   "version": "1",
   "manifest_version": 2,
-  "description": "Manipulate the DOM when the page is done loading",
+  "description": "Loads available movie downloads (720p, 1080p) in list or title page.",
   "browser_action": {
     "name": "Manipulate DOM",
     "icons": ["icon.png"],
