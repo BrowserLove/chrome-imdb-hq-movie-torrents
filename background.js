@@ -33,11 +33,14 @@
     function get_type(){
         var pathname = window.location.pathname;
 
-        if(pathname.match(/list\//) !== null) {
+        if(pathname.match(/\/list/) !== null) {
             return 'list';
         }
-        else if(pathname.match(/title\//) !== null){
-            return 'title'
+        else if(pathname.match(/\/title/) !== null){
+            return 'title';
+        }
+        else if(pathname.match(/\/watchlist/) !== null){
+            return 'watchlist';
         }
 
         return '';
@@ -50,6 +53,8 @@
                 return $('div.list.detail div.list_item');
             case 'title':
                 return $('div#title-overview-widget');
+            case 'watchlist':
+                return $('div.lister-item');
         }
     }
 
@@ -64,6 +69,8 @@
                     return this.element.find('div.info > b > a').text();
                 case 'title':
                     return this.element.find('h1.header > span[itemprop="name"]').text();
+                case 'watchlist':
+                    return this.element.find('.lister-item-index').text();
             }
         };
         this.getMovieId = function(){
@@ -72,14 +79,18 @@
                     return this.element.find('.image > a > div').attr('data-const');
                 case 'title':
                     return this.element.find('div.wlb_classic_wrapper a.wlb_watchlist_btn').attr('data-tconst');
+                case 'watchlist':
+                    return this.element.find('.ratings-user-rating .userRatingValue').attr('data-tconst');
             }
         };
         this.getAppendAfter = function(){
             switch(this.pageType){
                 case 'list':
-                    return this.element.find('.info > .rating');
+                    return this.element.find('.info > .rating').first();
                 case 'title':
-                    return this.element.find('div.star-box-details');
+                    return this.element.find('div.star-box-details').first();
+                case 'watchlist':
+                    return this.element.find('.ratings-bar + p').first();
             }
         };
 
@@ -88,9 +99,18 @@
         this.append_after = this.getAppendAfter();
     };
 
-    get_content_element(page_type).one('inview', function(e, isInView){
-        if(isInView) {
-            //console.log(new MovieItem($(this), page_type));
-            add_yify_links(new MovieItem($(this), page_type));
-        }
-    });
+    switch(page_type){
+        case 'watchlist':
+            get_content_element(page_type).on('mouseover', function(){
+                get_content_element(page_type).find('.yify').each(function(){ $(this).remove(); });
+                add_yify_links(new MovieItem($(this), page_type));
+            });
+            break;
+        default:
+            get_content_element(page_type).one('inview', function(e, isInView){
+                if(isInView) {
+                    add_yify_links(new MovieItem($(this), page_type));
+                }
+            });
+            break;
+    }
