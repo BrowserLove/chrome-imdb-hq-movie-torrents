@@ -1,5 +1,5 @@
     function add_yify_links(movie_selected) {
-        var links_string = "<div class='yify'><span>Available for download (magnet link): </span><div class='ajax_spin'></div></div>";
+        var links_string = "<div class='yify'><span>Available for download (magnet): </span><div class='ajax_spin'></div></div>";
         movie_selected.append_after.after(links_string);
         movie_selected.append_after = movie_selected.append_after.next('.yify');
         var ajax_spinner = movie_selected.append_after.find('.ajax_spin');
