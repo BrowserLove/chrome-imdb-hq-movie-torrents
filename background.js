@@ -11,13 +11,12 @@
                 url: "https://yts.re/api/listimdb.json?imdb_id=" + movie_selected.id,
                 dataType: "json"
             }).done(function (json_yify) {
+                ajax_spinner.hide();
                 if (json_yify.MovieCount > 0) {
-                    ajax_spinner.hide();
                     append_yify_links(movie_selected, json_yify);
                 }
                 else {
-                    ajax_spinner.addClass('disabled');
-                    ajax_spinner.innerText('n/a');
+                    movie_selected.append_after.append('n/a');
                 }
             });
         });
