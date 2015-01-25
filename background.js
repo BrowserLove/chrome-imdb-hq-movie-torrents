@@ -1,24 +1,34 @@
-$(document).ready(function() {
     function add_yify_links(movie_selected) {
-        $.ajax({
-            cache: true,
-            type: "GET",
-            url: "https://yts.re/api/listimdb.json?imdb_id=" + movie_selected.id,
-            dataType: "json"
-        }).done(function (json_yify) {
-            if (json_yify.MovieCount > 0) {
-                append_yify_links(movie_selected, json_yify);
-            }
+        var links_string = "<div class='yify'><span>Available for download (magnet link): </span><div class='ajax_spin'></div></div>";
+        movie_selected.append_after.after(links_string);
+        movie_selected.append_after = movie_selected.append_after.next('.yify');
+        var ajax_spinner = movie_selected.append_after.find('.ajax_spin');
+
+        $(document).ready(function() {
+            $.ajax({
+                cache: true,
+                type: "GET",
+                url: "https://yts.re/api/listimdb.json?imdb_id=" + movie_selected.id,
+                dataType: "json"
+            }).done(function (json_yify) {
+                if (json_yify.MovieCount > 0) {
+                    ajax_spinner.hide();
+                    append_yify_links(movie_selected, json_yify);
+                }
+                else {
+                    ajax_spinner.addClass('disabled');
+                    ajax_spinner.innerText('n/a');
+                }
+            });
         });
     }
-    
+
     function append_yify_links(movie_selected, json_yify) {
         var links = $.map(json_yify.MovieList, function(movie){
             return '<a href="' + movie.TorrentMagnetUrl + '">' + movie.Quality + '</a>';
         });
 
-        var links_string = "<div class='secondary'><span>Available for download (magnet link): </span>" + links.join(' ') + "</div>";
-        movie_selected.append_after.after(links_string);
+        movie_selected.append_after.append(links.join(' '));
     }
 
     function get_type(){
@@ -85,4 +95,3 @@ $(document).ready(function() {
             add_yify_links(new MovieItem($(this), page_type));
         }
     });
-});

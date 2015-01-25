@@ -1,0 +1,9 @@
+.ajax_spin {
+    display: inline-block;
+    width: .9em;
+    height: .7em;
+    background: url("http://ia.media-imdb.com/images/G/01/imdb/images/rating/spinner-3099941772._V_.gif") no-repeat center center;
+}
+.ajax_spin.disabled{
+    background: none;
+}
