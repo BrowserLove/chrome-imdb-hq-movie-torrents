@@ -4,7 +4,7 @@
   "manifest_version": 2,
   "description": "Adds links to available YIFT downloads (720p, 1080p, etc.) in IMDb list or title page.",
   "content_scripts": [ {
-    "js": ["jquery.min.js", "jquery.inview.min.js", "background.js"],
+    "js": ["jquery.min.js", "jquery.inview.min.js", "jquery.hoverIntent.min.js", "background.js"],
     "css": ["styles.css"],
     "matches": ["*://www.imdb.com/list/*", "*://www.imdb.com/title/*", "*://www.imdb.com/user/*/watchlist*"]
   }]

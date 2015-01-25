@@ -101,7 +101,7 @@
 
     switch(page_type){
         case 'watchlist':
-            get_content_element(page_type).on('mouseover', function(){
+            get_content_element(page_type).hoverIntent(function(){
                 get_content_element(page_type).find('.yify').each(function(){ $(this).remove(); });
                 add_yify_links(new MovieItem($(this), page_type));
             });
