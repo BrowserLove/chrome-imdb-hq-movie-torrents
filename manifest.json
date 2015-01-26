@@ -1,8 +1,8 @@
 {
   "name": "Lightweight YIFY movie downloader for IMDb",
-  "version": "1",
+  "version": "1.2",
   "manifest_version": 2,
-  "description": "Adds links to available YIFT downloads (720p, 1080p, etc.) in IMDb list or title page.",
+  "description": "Adds links of available YIFY movies (720p, 1080p, etc.) to IMDb.",
   "content_scripts": [ {
     "js": ["jquery.min.js", "jquery.inview.min.js", "jquery.hoverIntent.min.js", "background.js"],
     "css": ["styles.css"],

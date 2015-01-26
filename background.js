@@ -54,7 +54,7 @@
             case 'title':
                 return $('div#title-overview-widget');
             case 'watchlist':
-                return $('div.lister-item');
+                return $('.lister-list div.lister-item');
         }
     }
 
@@ -101,10 +101,30 @@
 
     switch(page_type){
         case 'watchlist':
-            get_content_element(page_type).hoverIntent(function(){
-                get_content_element(page_type).find('.yify').each(function(){ $(this).remove(); });
+            function watchlistLinks(){
+                $(this).find('.yify').each(function(){ $(this).remove(); });
                 add_yify_links(new MovieItem($(this), page_type));
-            });
+            }
+            function watchlistBinds(){
+                timer = setInterval(function(){
+                    if ($('.lister .lister-working').is(':hidden')) {
+                        element = get_content_element(page_type);
+
+                        element.unbind('hoverIntent');
+                        element.hoverIntent(watchlistLinks);
+
+                        $('.lister .lister-page-prev, .lister .lister-page-next').unbind('click');
+                        $('.lister .lister-page-prev, .lister .lister-page-next').bind('click', watchlistBinds);
+
+                        clearInterval(timer);
+                    }
+                }, 50);
+            }
+            var element = get_content_element(page_type);
+            element.hoverIntent(watchlistLinks);
+
+            $('.lister .lister-page-prev, .lister .lister-page-next').on('click', watchlistBinds);
+
             break;
         default:
             get_content_element(page_type).one('inview', function(e, isInView){
@@ -114,3 +134,9 @@
             });
             break;
     }
+
+    $(document).ready(function(){
+        $('.lister-list').on('change', function(){
+            console.error('Changed');
+        });
+    });
