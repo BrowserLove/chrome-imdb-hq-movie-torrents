@@ -118,7 +118,7 @@
 
                         clearInterval(timer);
                     }
-                }, 50);
+                }, 100);
             }
             var element = get_content_element(page_type);
             element.hoverIntent(watchlistLinks);
