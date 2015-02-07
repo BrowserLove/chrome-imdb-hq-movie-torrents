@@ -24,7 +24,7 @@
 
     function append_yify_links(movie_selected, json_yify) {
         var links = $.map(json_yify.MovieList, function(movie){
-            return '<a href="' + movie.TorrentMagnetUrl + '">' + movie.Quality + '</a>';
+            return '<a rel="nofollow" href="' + movie.TorrentMagnetUrl + '">' + movie.Quality + '</a>';
         });
 
         movie_selected.append_after.append(links.join(' '));
@@ -113,8 +113,9 @@
                         element.unbind('hoverIntent');
                         element.hoverIntent(watchlistLinks);
 
-                        $('.lister .lister-page-prev, .lister .lister-page-next').unbind('click');
-                        $('.lister .lister-page-prev, .lister .lister-page-next').bind('click', watchlistBinds);
+                        // $('.lister .lister-page-prev, .lister .lister-page-next').unbind('click');
+                        $('.lister .lister-page-prev, .lister .lister-page-next, .lister .lister-sort-reverse, .lister .lister-mode.grid').bind('click', watchlistBinds);
+                        $('.lister .lister-sort-by').on('change', watchlistBinds);
 
                         clearInterval(timer);
                     }
@@ -123,7 +124,8 @@
             var element = get_content_element(page_type);
             element.hoverIntent(watchlistLinks);
 
-            $('.lister .lister-page-prev, .lister .lister-page-next').on('click', watchlistBinds);
+            $('.lister .lister-page-prev, .lister .lister-page-next, .lister .lister-sort-reverse, .lister .lister-mode.grid').on('click', watchlistBinds);
+            $('.lister .lister-sort-by').on('change', watchlistBinds);
 
             break;
         default:
