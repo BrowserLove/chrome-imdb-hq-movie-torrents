@@ -8,7 +8,7 @@
             $.ajax({
                 cache: true,
                 type: "GET",
-                url: "https://yts.re/api/listimdb.json?imdb_id=" + movie_selected.id,
+                url: "https://yts.to/api/listimdb.json?imdb_id=" + movie_selected.id,
                 dataType: "json"
             }).done(function (json_yify) {
                 ajax_spinner.hide();
