@@ -1,6 +1,6 @@
 {
   "name": "YIFY movie downloader for IMDb",
-  "version": "1.300",
+  "version": "1.301",
   "manifest_version": 2,
   "description": "Lightweight and fast solution for adding links of available YIFY movie download (720p, 1080p, etc.) to IMDb.",
   "content_scripts": [ {
