@@ -1,11 +1,11 @@
 {
-  "name": "YIFY movie downloader for IMDb",
-  "version": "1.301",
+  "name": "YTS provided IMDb torrent links",
+  "version": "2.0",
   "manifest_version": 2,
-  "description": "Lightweight and fast solution for adding links of available YIFY movie download (720p, 1080p, etc.) to IMDb.",
+  "description": "Lightweight and fast solution for adding movie download links on IMDb using YTS (a.k.a. YIFY) torrents.",
   "content_scripts": [ {
-    "js": ["jquery.min.js", "jquery.inview.min.js", "jquery.hoverIntent.min.js", "background.js"],
+    "js": ["jquery.min.js", "background.js"],
     "css": ["styles.css"],
-    "matches": ["*://www.imdb.com/list/*", "*://www.imdb.com/title/*", "*://www.imdb.com/user/*/watchlist*"]
+    "matches": ["*://www.imdb.com/title/*"]
   }]
 }
