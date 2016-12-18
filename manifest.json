@@ -1,11 +1,11 @@
 {
-  "name": "YIFY movie downloader for IMDb",
-  "version": "1.301",
+  "name": "YTS movie download availability for IMDb",
+  "version": "2.00",
   "manifest_version": 2,
-  "description": "Lightweight and fast solution for adding links of available YIFY movie download (720p, 1080p, etc.) to IMDb.",
+  "description": "Lightweight and fast solution for adding links to IMDb of available YTS movie downloads (720p, 1080p, etc.).",
   "content_scripts": [ {
-    "js": ["jquery.min.js", "jquery.inview.min.js", "jquery.hoverIntent.min.js", "background.js"],
+    "js": ["axios.min.js", "jquery.slim.min.js", "app.js"],
     "css": ["styles.css"],
-    "matches": ["*://www.imdb.com/list/*", "*://www.imdb.com/title/*", "*://www.imdb.com/user/*/watchlist*"]
+    "matches": ["*://www.imdb.com/title/*", "*://yts.ag/api/*"]
   }]
 }
