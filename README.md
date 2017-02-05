@@ -1,8 +1,6 @@
 ## IMDb Torrents
-###Google Chrome extention
+###Google Chrome extension
 
-IMDb now restricts foreign origin requests, therefore this extension is no longer usable.
+Lightweight solution for adding torrent movie download (720p, 1080p, etc.) links of [YTS.AG](http://yts.ag/) to IMDb.
 
-Lightweight and fast solution for adding links of available [YTS.AG](http://yts.ag/) A.K.A. YIFY torrent movie downloads (720p, 1080p, etc.) to IMDb itself.
-
-More information about the extension in the [Google Chrome Store](https://goo.gl/qMhU3c)
+More information about the extension in the [Google Chrome Store](https://chrome.google.com/webstore/detail/imdb-torrents/aigcaiclehmgphlnnjcohbkbfjhddgan)
