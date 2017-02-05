@@ -1,11 +1,11 @@
 {
-  "name": "YTS movie download availability for IMDb",
-  "version": "2.00",
+  "name": "IMDb Torrents",
+  "version": "2.0.0",
   "manifest_version": 2,
-  "description": "Lightweight and fast solution for adding links to IMDb of available YTS movie downloads (720p, 1080p, etc.).",
+  "description": "Adds Torrent Download Links to IMDb pages (720p, 1080p, etc.).",
   "content_scripts": [ {
     "js": ["axios.min.js", "jquery.slim.min.js", "app.js"],
     "css": ["styles.css"],
-    "matches": ["*://www.imdb.com/title/*", "*://yts.ag/api/*"]
+    "matches": ["*://www.imdb.com/title/*", "*://yts.ag/*"]
   }]
 }

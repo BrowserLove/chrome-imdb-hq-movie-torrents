@@ -7,3 +7,15 @@
 .ajax_spin.disabled{
     background: none;
 }
+
+ul.torrents {
+  display: inline-block;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.torrents li {
+  display: inline-block;
+  margin-right: 5px;
+}
