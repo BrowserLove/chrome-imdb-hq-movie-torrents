@@ -60,7 +60,7 @@
   }
 
   $(document).ready(function(){
-    var movieTitle = $('h1').text().split('(')[0].trim();
+    var movieTitle = $('h1[itemprop="name"]').text().split('(')[0].trim();
 
     app.init(movieTitle);
     app.fetchTorrentMagnetLinks();
