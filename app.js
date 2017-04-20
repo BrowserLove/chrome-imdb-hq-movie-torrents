@@ -1,10 +1,10 @@
 (function(){
   var app = {
-    yts_url: "https://yts.ag/",
-    movieTitle: '',
+    yts_api_url: "https://yts.ag/api/v2/list_movies.json?query_term=",
+    movieId: '',
 
-    init: function(movieTitle){
-      this.movieTitle = movieTitle;
+    init: function(movieId){
+      this.movieId = movieId;
       this.cacheDom();
     },
 
@@ -20,49 +20,41 @@
       $('.credit_summary_item').last().after(this.movieDownloadBlock);
     },
 
-    appendTorrentLink: function(link, quality, type, isLast){
+    appendTorrentLink: function(link, quality, isLast){
       this.movieDownloadLinks.append(
-        "<li><a href='" + link + "'>" + quality + " " + type + "</a>" + (!isLast ? ',' : '') + "</li>"
+        "<li><a href='" + link + "'>" + quality + "</a>" + (!isLast ? ',' : '') + "</li>"
       );
     },
 
     fetchTorrentMagnetLinks: function(){
       var self = this;
 
-      axios.get(self.yts_url + "ajax/search", { params: {
-          query: self.movieTitle
-      }}).then(function (response) {
-        if(response.data.data && response.data.data[0]){
-          axios.get(response.data.data[0].url).then(function (response) {
-
-            var links = $(response.data).find('.modal-download a');
-            links.each(function(i, link){
-              var link = $(link);
-              var quality = link.attr('title').split(' ');
-
-          		self.appendTorrentLink(
-                link.attr('href'),
-                quality[quality.length - 2],
-                link.text().toLowerCase() == 'download' ? 'torrent' : 'magnet',
-                links.length - 1 == i
-              );
-          	});
-
-            self.spinner.hide();
-          }).catch(function (error) {
-            console.log(error);
+      axios.get(self.yts_api_url + self.movieId).then(function (response) {
+        if(response.data.data && response.data.data.movies && response.data.data.movies[0]) {
+          response.data.data.movies[0].torrents.map(function(torrent, i){
+            self.appendTorrentLink(
+              torrent.url,
+              torrent.quality,
+              i == response.data.data.movies[0].torrents.length - 1
+            );
           });
         }
+        else {
+          self.movieDownloadLinks.append('<li>n/a</li>');
+        }
+
+        self.spinner.hide();
       }).catch(function (error) {
         console.log(error);
+        self.spinner.hide();
       });
     }
   }
 
   $(document).ready(function(){
-    var movieTitle = $('h1[itemprop="name"]').text().split('(')[0].trim();
+    var movieId = $('meta[property="pageId"]').attr('content');
 
-    app.init(movieTitle);
+    app.init(movieId);
     app.fetchTorrentMagnetLinks();
   });
 })();
