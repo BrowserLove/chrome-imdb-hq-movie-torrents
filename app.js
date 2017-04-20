@@ -2,9 +2,12 @@
   var app = {
     yts_api_url: "https://yts.ag/api/v2/list_movies.json?query_term=",
     movieId: '',
+    isTrailerAvailable: true,
 
-    init: function(movieId){
+    init: function(movieId, isTrailerAvailable){
       this.movieId = movieId;
+      this.isTrailerAvailable = isTrailerAvailable;
+
       this.cacheDom();
     },
 
@@ -18,12 +21,27 @@
       this.movieDownloadBlock.append(this.movieDownloadLinks);
 
       $('.credit_summary_item').last().after(this.movieDownloadBlock);
+
+      this.movieTrailerBlock = $('<div class="slate"></div>');
+      $('.heroic-overview .plot_summary_wrapper').before(this.movieTrailerBlock);
     },
 
     appendTorrentLink: function(link, quality, isLast){
       this.movieDownloadLinks.append(
         "<li><a href='" + link + "'>" + quality + "</a>" + (!isLast ? ',' : '') + "</li>"
       );
+    },
+
+    embedTrailer: function(youtubeVideoId) {
+      var embed = $('<iframe width="477" height="268" src="https://www.youtube.com/embed/' + youtubeVideoId + '?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>');
+
+      $('.minPosterWithPlotSummaryHeight').attr('class', '').attr('class', 'slate_wrapper');
+      $('.heroic-overview .vital').append($('.slate_wrapper'));
+
+      $('.heroic-overview').append($('.plot_summary_wrapper'));
+      $('.plot_summary_wrapper .plot_summary').removeClass('minPlotHeightWithPoster');
+
+      this.movieTrailerBlock.append(embed);
     },
 
     fetchTorrentMagnetLinks: function(){
@@ -38,6 +56,10 @@
               i == response.data.data.movies[0].torrents.length - 1
             );
           });
+
+          if(!self.isTrailerAvailable) {
+            self.embedTrailer(response.data.data.movies[0].yt_trailer_code);
+          }
         }
         else {
           self.movieDownloadLinks.append('<li>n/a</li>');
@@ -53,8 +75,9 @@
 
   $(document).ready(function(){
     var movieId = $('meta[property="pageId"]').attr('content');
+    var isTrailerAvailable = !!$('.slate_wrapper .slate').length;
 
-    app.init(movieId);
+    app.init(movieId, isTrailerAvailable);
     app.fetchTorrentMagnetLinks();
   });
 })();
