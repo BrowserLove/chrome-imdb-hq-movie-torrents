@@ -1,6 +1,6 @@
 {
   "name": "IMDb Torrents",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "manifest_version": 2,
   "description": "Adds Torrent Download Links to IMDb pages (720p, 1080p, etc.).",
   "content_scripts": [ {

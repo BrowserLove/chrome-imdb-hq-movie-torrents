@@ -76,8 +76,8 @@
             var isLast = i == movie.torrents.length - 1;
             var magnet = self.buildMagnetUrl(movie.title_long + ' [' + torrent.quality + '] [YTS.AG]', torrent.hash);
 
-            self.appendTorrentLink(torrent.url, torrent.quality + ' (torrent)', false);
-            self.appendTorrentLink(magnet, torrent.quality + ' (magnet)', isLast);
+            self.appendTorrentLink(torrent.url, torrent.quality + ' torrent', false);
+            self.appendTorrentLink(magnet, torrent.quality + ' magnet', isLast);
           });
 
           if(!self.isTrailerAvailable) {
