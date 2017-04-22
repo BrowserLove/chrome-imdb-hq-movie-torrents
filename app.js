@@ -1,6 +1,16 @@
 (function(){
   var app = {
     yts_api_url: "https://yts.ag/api/v2/list_movies.json?query_term=",
+    yts_trackers: [
+      'udp://open.demonii.com:1337/announce',
+      'udp://tracker.openbittorrent.com:80',
+      'udp://tracker.coppersurfer.tk:6969',
+      'udp://glotorrents.pw:6969/announce',
+      'udp://tracker.opentrackr.org:1337/announce',
+      'udp://torrent.gresille.org:80/announce',
+      'udp://p4p.arenabg.com:1337',
+      'udp://tracker.leechers-paradise.org:6969'
+    ],
     movieId: '',
     isTrailerAvailable: true,
 
@@ -44,21 +54,34 @@
       this.movieTrailerBlock.append(embed);
     },
 
+    buildMagnetUrl: function(title, hash) {
+      var self = this;
+      var magnet = 'magnet:?xt=urn:btih:' + hash + '&dn=' + encodeURI(title);
+
+      self.yts_trackers.map(function(tracker) {
+        magnet = magnet + '&tr=' + tracker;
+      });
+
+      return magnet;
+    },
+
     fetchTorrentMagnetLinks: function(){
       var self = this;
 
       axios.get(self.yts_api_url + self.movieId).then(function (response) {
         if(response.data.data && response.data.data.movies && response.data.data.movies[0]) {
-          response.data.data.movies[0].torrents.map(function(torrent, i){
-            self.appendTorrentLink(
-              torrent.url,
-              torrent.quality,
-              i == response.data.data.movies[0].torrents.length - 1
-            );
+          var movie = response.data.data.movies[0];
+
+          movie.torrents.map(function(torrent, i){
+            var isLast = i == movie.torrents.length - 1;
+            var magnet = self.buildMagnetUrl(movie.title_long + ' [' + torrent.quality + '] [YTS.AG]', torrent.hash);
+
+            self.appendTorrentLink(torrent.url, torrent.quality + ' (torrent)', false);
+            self.appendTorrentLink(magnet, torrent.quality + ' (magnet)', isLast);
           });
 
           if(!self.isTrailerAvailable) {
-            self.embedTrailer(response.data.data.movies[0].yt_trailer_code);
+            self.embedTrailer(movie.yt_trailer_code);
           }
         }
         else {
@@ -68,6 +91,7 @@
         self.spinner.hide();
       }).catch(function (error) {
         console.log(error);
+
         self.spinner.hide();
       });
     }
