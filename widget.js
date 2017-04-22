@@ -1,6 +1,6 @@
 (function(){
   var app = {
-    yts_api_url: "https://yts.ag/api/v2/list_movies.json?minimum_rating=6&sort_by=year&limit=14",
+    yts_api_url: "https://yts.ag/api/v2/list_movies.json?minimum_rating=6&limit=14",
 
     init: function() {
       this.cacheDom();
