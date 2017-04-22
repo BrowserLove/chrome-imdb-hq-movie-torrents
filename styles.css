@@ -19,3 +19,20 @@ ul.torrents li {
   display: inline-block;
   margin-right: 5px;
 }
+
+.chrome-imdb-rating {
+  background: yellowgreen;
+  margin-right: 8px;
+  padding: 3px 5px;
+  border-radius: 5px;
+  color: white;
+}
+
+.with-ellipsis {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  line-height: 2em;
+}

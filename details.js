@@ -98,6 +98,8 @@
   }
 
   $(document).ready(function(){
+    if (window.location.pathname.indexOf('/title/') !== 0) return;
+
     var movieId = $('meta[property="pageId"]').attr('content');
     var isTrailerAvailable = !!$('.slate_wrapper .slate').length;
 
