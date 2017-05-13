@@ -1,8 +1,8 @@
 {
-  "name": "IMDb Torrents",
-  "version": "2.1.2",
+  "name": "IMDb Enhanced",
+  "version": "2.2",
   "manifest_version": 2,
-  "description": "Adds Torrent Download Links to IMDb pages (720p, 1080p, etc.).",
+  "description": "Adds movie HQ torrent & streaming links to IMDb movie pages.",
   "content_scripts": [ {
     "js": ["vendors/axios.min.js", "vendors/jquery.slim.min.js", "vendors/jquery.number.min.js", "details.js", "widget.js"],
     "css": ["styles.css"],

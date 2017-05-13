@@ -1,5 +1,6 @@
 (function(){
   var app = {
+    imdb_stream_api_url: 'https://imdb-stream-api.herokuapp.com/api/',
     yts_api_url: "https://yts.ag/api/v2/list_movies.json?query_term=",
     yts_trackers: [
       'udp://open.demonii.com:1337/announce',
@@ -22,7 +23,8 @@
     },
 
     cacheDom: function(){
-      this.movieDownloadBlock = $("<div class='credit_summary_item'><h4 class='inline'>Torrents:</h4></div>");
+      this.movieDownloadBlock = $("<div class='credit_summary_item' style='padding: 0;'><h4 class='inline'>Torrents:</h4></div>");
+      this.movieStreamingBlock = $("<div class='credit_summary_item'><h4 class='inline'>Watch online:</h4></div>");
 
       this.spinner = $("<div class='ajax_spin'></div>");
       this.movieDownloadBlock.append(this.spinner);
@@ -31,6 +33,7 @@
       this.movieDownloadBlock.append(this.movieDownloadLinks);
 
       $('.credit_summary_item').last().after(this.movieDownloadBlock);
+      this.movieDownloadBlock.after(this.movieStreamingBlock);
 
       this.movieTrailerBlock = $('<div class="slate"></div>');
       $('.heroic-overview .plot_summary_wrapper').before(this.movieTrailerBlock);
@@ -39,6 +42,12 @@
     appendTorrentLink: function(link, quality, isLast){
       this.movieDownloadLinks.append(
         "<li><a href='" + link + "'>" + quality + "</a>" + (!isLast ? ',' : '') + "</li>"
+      );
+    },
+
+    appendStreamingLink: function(link){
+      this.movieStreamingBlock.append(
+        "<a target='_blank' href='" + link + "'>Play</a>"
       );
     },
 
@@ -63,6 +72,19 @@
       });
 
       return magnet;
+    },
+
+    fetchStreamingLink: function() {
+      var self = this;
+
+      axios.get(self.imdb_stream_api_url + self.movieId).then(function(response) {
+        if(response.data.streamingUrl) {
+          self.appendStreamingLink(response.data.streamingUrl, 'Online', false);
+        }
+      }).catch(function(error) {
+        self.appendStreamingLink('n/a');
+        console.log(error);
+      })
     },
 
     fetchTorrentMagnetLinks: function(){
@@ -104,6 +126,7 @@
     var isTrailerAvailable = !!$('.slate_wrapper .slate').length;
 
     app.init(movieId, isTrailerAvailable);
+    app.fetchStreamingLink();
     app.fetchTorrentMagnetLinks();
   });
 })();
