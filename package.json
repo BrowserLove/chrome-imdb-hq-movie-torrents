@@ -1,0 +1,8 @@
+{
+  "name": "chrome-imdb-torrents",
+  "version": "2.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Gyvastis/jquery-yify-movie-checker.git",
+  "author": "<shibalba1@gmail.com>",
+  "license": "MIT"
+}
