@@ -23,28 +23,28 @@ const getMagnetUrl = (title, hash) => {
   return `magnet:?xt=urn:btih:${hash}&dn=${encodeURI(title)}${trackersString}`;
 };
 
-const parseApiMovies = (movies = []) =>
-  movies.map(({
-    title_long: title,
-    imdb_code: imdbId,
-    rating,
-    yt_trailer_code: youtube,
-    torrents
-  }) => ({
-    title,
-    imdbId,
-    rating,
-    youtube,
-    torrents: torrents.map(({
-      hash,
-      quality,
-      size,
-    }) => ({
-      magnet: getMagnetUrl(title, hash),
-      quality,
-      size
-    }))
-}));
+// const parseApiMovies = (movies = []) =>
+//   movies.map(({
+//     title_long: title,
+//     imdb_code: imdbId,
+//     rating,
+//     yt_trailer_code: youtube,
+//     torrents
+//   }) => ({
+//     title,
+//     imdbId,
+//     rating,
+//     youtube,
+//     torrents: torrents.map(({
+//       hash,
+//       quality,
+//       size,
+//     }) => ({
+//       magnet: getMagnetUrl(title, hash),
+//       quality,
+//       size
+//     }))
+// }));
 
 const fetchMovies = (qs = {}) =>
   request({
@@ -53,8 +53,8 @@ const fetchMovies = (qs = {}) =>
     json: true
   })
   .then(({ data }) => data)
-  .then(({ movies }) => movies)
-  .then(parseApiMovies);
+  .then(({ movies }) => movies);
+  // .then(parseApiMovies);
 
 /*
   qs = {

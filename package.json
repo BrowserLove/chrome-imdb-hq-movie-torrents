@@ -6,17 +6,20 @@
   "author": "<shibalba1@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "backpack",
-    "build": "backpack build",
+    "build": "node ./node_modules/webpack/bin/webpack.js",
     "build:before": "rm -rf ./build",
     "build:after": "cp -R ./build-keep/* ./build",
     "build:release": "npm run build:before && npm run build && npm run build:after"
   },
   "devDependencies": {
-    "backpack-core": "^0.4.3"
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "webpack": "^3.10.0"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.2",
+    "jquery": "^3.2.1",
     "request": "^2.83.0",
     "request-promise": "^4.2.2"
   }

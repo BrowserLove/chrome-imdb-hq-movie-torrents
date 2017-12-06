@@ -5,7 +5,7 @@
   "description": "Adds movie HQ torrent & streaming links to IMDb movie pages.",
   "content_scripts": [
     {
-      "js": ["main.js", "widget.js"],
+      "js": ["main.min.js"],
       "css": ["styles.css"],
       "matches": ["*://www.imdb.com/", "*://www.imdb.com/?*", "*://www.imdb.com/title/*", "*://yts.ag/*"]
     }
