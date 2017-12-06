@@ -25,9 +25,14 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
+            cacheDirectory: true,
             presets: [
               'babel-preset-env',
+              'babel-preset-es2015',
               'babel-preset-stage-0'
+            ],
+            plugins: [
+              require('babel-plugin-transform-runtime'),
             ]
           }
         }
