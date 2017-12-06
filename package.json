@@ -7,7 +7,10 @@
   "license": "MIT",
   "scripts": {
     "dev": "backpack",
-    "build": "backpack build"
+    "build": "backpack build",
+    "build:before": "rm -rf ./build",
+    "build:after": "cp -R ./build-keep/* ./build",
+    "build:release": "npm run build:before && npm run build && npm run build:after"
   },
   "devDependencies": {
     "backpack-core": "^0.4.3"
