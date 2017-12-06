@@ -4,5 +4,17 @@
   "main": "index.js",
   "repository": "git@github.com:Gyvastis/jquery-yify-movie-checker.git",
   "author": "<shibalba1@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "dev": "backpack",
+    "build": "backpack build"
+  },
+  "devDependencies": {
+    "backpack-core": "^0.4.3"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2"
+  }
 }
