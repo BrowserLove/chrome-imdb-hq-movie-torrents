@@ -1,7 +1,9 @@
 var debug = process.env.NODE_ENV !== "production";
 var webpack = require('webpack');
+var HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
 module.exports = {
+  cache: true,
   context: __dirname,
   devtool: debug ? "inline-sourcemap" : false,
   entry: "./src/index.js",
@@ -11,6 +13,7 @@ module.exports = {
   },
   plugins: debug ? [] : [
     new webpack.optimize.UglifyJsPlugin({ mangle: true, sourcemap: false }),
+    new HardSourceWebpackPlugin()
   ],
   node: {
     fs: "empty",
@@ -32,7 +35,7 @@ module.exports = {
               'babel-preset-stage-0'
             ],
             plugins: [
-              require('babel-plugin-transform-runtime'),
+              require('babel-plugin-transform-runtime')
             ]
           }
         }
