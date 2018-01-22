@@ -1,31 +1,23 @@
 (function(){
+  var API_URL = "https://chrome-imdb-enhanced-server.herokuapp.com/";
+
   var app = {
-    yts_api_url: "https://yts.ag/api/v2/list_movies.json?minimum_rating=6&limit=14",
-
-    init: function() {
-      this.cacheDom();
-    },
-
-    cacheDom: function(){
-      this.sidebar = $('#sidebar');
-    },
-
-    fetchLatestMovies: function() {
+    fetchLatestMovieTorrents: function() {
       var self = this;
 
-      axios.get(self.yts_api_url).then(function (response) {
-        if(response.data.data && response.data.data.movies) {
-          var movies = response.data.data.movies;
-
-          self.render(movies);
-        }
-      }).catch(function (error) {
+      $.ajax({
+        method: 'GET',
+        url: API_URL + 'latest',
+        dataType: 'json',
+      }).done(function(response) {
+        self.render(response);
+      }).fail(function(error) {
         console.log(error);
       });
     },
 
     render: function(movies){
-      var firstWidget = this.sidebar.find('.aux-content-widget-2').first();
+      var firstWidget = $('#sidebar').find('.aux-content-widget-2').first();
       var widget = firstWidget.clone();
       var movieLink = widget.find('.rhs-row').first();
       var movieLinkContainer = widget.find('.rhs-body').first();
@@ -42,13 +34,13 @@
         var newMovieLink = movieLink.clone();
 
         var titleLink = newMovieLink.find('.title a');
-        titleLink.text(movie.title_long);
-        titleLink.attr('href', titleLink.attr('href') + movie.imdb_code + '/');
+        titleLink.text(movie.title);
+        titleLink.attr('href', titleLink.attr('href') + movie.imdbId + '/');
         titleLink.attr('target', '_blank');
         titleLink.parent().addClass('with-ellipsis');
 
         movieLinkContainer.append(newMovieLink);
-        titleLink.before($("<span class='chrome-imdb-rating'>" + $.number(movie.rating, 1) + "</span>"));
+        titleLink.before($("<span class='chrome-imdb-rating'>" + (Math.round(movie.rating * 10) / 10).toFixed(1) + "</span>"));
       });
 
       firstWidget.before(widget);
@@ -58,7 +50,6 @@
   $(document).ready(function(){
     if (window.location.pathname !== '/') return;
 
-    app.init();
-    app.fetchLatestMovies();
+    app.fetchLatestMovieTorrents();
   });
 })();
