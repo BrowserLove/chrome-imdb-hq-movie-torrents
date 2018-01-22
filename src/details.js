@@ -67,7 +67,7 @@
       var self = this;
 
       this.fetchTorrent(function (movie) {
-        if(movie.title) {
+        if(movie && movie.title) {
           movie.torrents.map(function(torrent, i){
             self.appendLink(torrent.url, torrent.quality + ' torrent');
             self.appendLink(torrent.magnet, torrent.quality + ' magnet');
