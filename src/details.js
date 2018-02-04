@@ -73,9 +73,17 @@
             self.appendLink(torrent.magnet, torrent.quality + ' magnet');
           });
 
-          app.appendLink('https://www.google.com/search?q=' + encodeURIComponent('netflix ' + movie.title) + '&btnI=Im+Feeling+Lucky', 'Netflix');
+          if(movie.netflix) {
+            app.appendLink(movie.netflix, 'Netflix');
+          }
 
-          app.appendLink('https://www.google.com/search?q=' + encodeURIComponent('watch online ' + movie.title) + '&btnI=Im+Feeling+Lucky', 'Online');
+          if(movie.stream) {
+            app.appendLink(movie.stream, 'Online');
+          }
+          else {
+            // BC
+            app.appendLink('https://www.google.com/search?q=' + encodeURIComponent('stream online ' + movie.title) + '&btnI=Im+Feeling+Lucky', 'Online');
+          }
 
           if(!self.isTrailerAvailable) {
             self.embedTrailer(movie.youtube);
