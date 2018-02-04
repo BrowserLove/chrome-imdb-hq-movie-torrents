@@ -71,19 +71,19 @@
           movie.torrents.map(function(torrent, i){
             self.appendLink(torrent.url, torrent.quality + ' torrent');
             self.appendLink(torrent.magnet, torrent.quality + ' magnet');
+
+            if(torrent.netflix) {
+              app.appendLink(movie.netflix, 'Netflix');
+            }
+
+            if(torrent.stream) {
+              app.appendLink(movie.stream, 'Online');
+            }
+            else {
+              // BC
+              app.appendLink('https://www.google.com/search?q=' + encodeURIComponent('stream online ' + movie.title) + '&btnI=Im+Feeling+Lucky', 'Online');
+            }
           });
-
-          if(movie.netflix) {
-            app.appendLink(movie.netflix, 'Netflix');
-          }
-
-          if(movie.stream) {
-            app.appendLink(movie.stream, 'Online');
-          }
-          else {
-            // BC
-            app.appendLink('https://www.google.com/search?q=' + encodeURIComponent('stream online ' + movie.title) + '&btnI=Im+Feeling+Lucky', 'Online');
-          }
 
           if(!self.isTrailerAvailable) {
             self.embedTrailer(movie.youtube);
