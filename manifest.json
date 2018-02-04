@@ -1,6 +1,6 @@
 {
   "name": "IMDb Enhanced",
-  "version": "2.3.1",
+  "version": "2.4.0",
   "manifest_version": 2,
   "description": "Adds movie HQ torrent & streaming links to IMDb movie pages.",
   "content_scripts": [ {
