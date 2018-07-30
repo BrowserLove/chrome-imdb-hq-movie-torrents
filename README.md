@@ -1,5 +1,5 @@
-## IMDb Torrents
-###Google Chrome extension
+# IMDb HQ Movie torrents
+## Google Chrome extension
 
 Lightweight solution for adding streaming & HQ torrent movie links of [YTS.AG](http://yts.ag/) to IMDb.
 * torrent & online streaming links inside movie detail page
