@@ -1,19 +1,16 @@
 (function(){
-  var API_URL = "https://chrome-imdb-enhanced-server.herokuapp.com/";
-
   var app = {
     fetchLatestMovieTorrents: function() {
       var self = this;
 
-      $.ajax({
-        method: 'GET',
-        url: API_URL + 'latest',
-        dataType: 'json',
-      }).done(function(response) {
-        self.render(response);
-      }).fail(function(error) {
-        console.log(error);
-      });
+      YTS.fetchMovies($, qs = {
+        minimum_rating: 6,
+        limit: 50
+      }, movies => {
+        const filteredMovies = movies.filter(movie => movie.year >= (new Date()).getFullYear() - 3).slice(0, 10);
+
+        self.render(filteredMovies);
+      })
     },
 
     render: function(movies){

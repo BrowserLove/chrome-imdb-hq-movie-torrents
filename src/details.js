@@ -50,17 +50,12 @@
     fetchTorrent: function(onSuccess) {
       var self = this;
 
-      $.ajax({
-        method: 'GET',
-        url: API_URL + self.movieId,
-        dataType: 'json',
-      }).done(function(response) {
-        onSuccess(response);
+      YTS.fetchMovies($, qs = {
+        query_term: this.movieId,
+      }, movies => {
+        onSuccess(movies[0]);
         self.spinner.hide();
-      }).fail(function(error) {
-        console.log(error);
-        self.spinner.hide();
-      });
+      })
     },
 
     addTorrentLinks: function(){

@@ -1,11 +1,18 @@
 {
   "name": "IMDb High Quality Movie Torrents",
-  "version": "2.4.4",
+  "version": "2.5.0",
   "manifest_version": 2,
   "description": "Adds HQ movie torrent & streaming links to IMDb movie pages.",
-  "content_scripts": [ {
-    "js": ["vendors/jquery.min.js", "src/details.js", "src/latest.js"],
-    "css": ["styles.css"],
-    "matches": ["*://www.imdb.com/", "*://www.imdb.com/?*", "*://www.imdb.com/title/*", "*://yts.ag/*"]
-  }]
+  "content_scripts": [
+    {
+      "js": ["vendors/jquery.min.js", "src/yts-api.js", "src/latest.js"],
+      "css": ["styles.css"],
+      "matches": ["*://www.imdb.com/*"]
+    },
+    {
+      "js": ["vendors/jquery.min.js", "src/yts-api.js", "src/details.js"],
+      "css": ["styles.css"],
+      "matches": ["*://www.imdb.com/title/*"]
+    }
+  ]
 }
