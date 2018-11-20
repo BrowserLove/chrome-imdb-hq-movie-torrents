@@ -26,6 +26,7 @@
 
       movieLink.find('.title a').attr('href', window.location.protocol + '//' + window.location.hostname + '/title/');
       movieLink.find('.ribbonize').remove();
+      movieLink.find('.action').remove();
 
       movies.map(function(movie) {
         var newMovieLink = movieLink.clone();
