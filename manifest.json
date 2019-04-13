@@ -1,8 +1,8 @@
 {
-  "name": "IMDb High Quality Movie Torrents",
+  "name": "IMDb HD Movie Torrents",
   "version": "2.5.3",
   "manifest_version": 2,
-  "description": "Adds HQ movie torrent & streaming links to IMDb movie pages.",
+  "description": "Adds HD movie torrent & streaming links to IMDb movie pages.",
   "content_scripts": [
     {
       "js": ["vendors/jquery.min.js", "src/yts-api.js", "src/latest.js"],
