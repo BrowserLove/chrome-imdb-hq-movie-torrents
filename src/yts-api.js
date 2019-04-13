@@ -52,7 +52,6 @@ YTS.parseApiMovies = (movies = []) =>
 
 YTS.fetchMovies = ($, qs = {}, cb) =>
   $.getJSON(`https://yts.am/api/v2/list_movies.jsonp?${$.param(qs)}`, response => {
-    console.log(response.data.movies)
     cb(YTS.parseApiMovies(response.data.movies))
   })
 
