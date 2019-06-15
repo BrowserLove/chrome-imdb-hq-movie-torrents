@@ -1,3 +1,6 @@
+const $ = require('jquery');
+const YTS = require('./yts-api');
+
 (function(){
   var app = {
     fetchLatestMovieTorrents: function() {

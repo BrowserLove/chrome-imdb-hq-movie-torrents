@@ -51,7 +51,7 @@ YTS.parseApiMovies = (movies = []) =>
 })) : [];
 
 YTS.fetchMovies = ($, qs = {}, cb) =>
-  $.getJSON(`https://yts.am/api/v2/list_movies.jsonp?${$.param(qs)}`, response => {
+  $.getJSON(`https://yts.lt/api/v2/list_movies.jsonp?${$.param(qs)}`, response => {
     cb(YTS.parseApiMovies(response.data.movies))
   })
 
@@ -68,3 +68,5 @@ YTS.fetchMovies = ($, qs = {}, cb) =>
     with_rt_ratings
   }
 */
+
+module.exports = YTS;

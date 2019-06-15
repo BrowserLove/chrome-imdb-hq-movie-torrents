@@ -1,3 +1,5 @@
+const YTS = require('./yts-api');
+
 (function(){
   var API_URL = "https://chrome-imdb-enhanced-server.herokuapp.com/";
 

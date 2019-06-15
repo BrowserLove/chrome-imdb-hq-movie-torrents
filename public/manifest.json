@@ -1,16 +1,16 @@
 {
   "name": "IMDb HD Movie Torrents",
-  "version": "2.5.3",
+  "version": "2.6.0",
   "manifest_version": 2,
   "description": "Adds HD movie torrent & streaming links to IMDb movie pages.",
   "content_scripts": [
     {
-      "js": ["vendors/jquery.min.js", "src/yts-api.js", "src/latest.js"],
+      "js": ["jquery.min.js", "latest.min.js"],
       "css": ["styles.css"],
       "matches": ["*://www.imdb.com/*"]
     },
     {
-      "js": ["vendors/jquery.min.js", "src/yts-api.js", "src/details.js"],
+      "js": ["jquery.min.js", "details.min.js"],
       "css": ["styles.css"],
       "matches": ["*://www.imdb.com/title/*"]
     }
