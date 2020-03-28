@@ -54,6 +54,7 @@ const YTS = require('./yts-api');
 
       YTS.fetchMovies($, qs = {
         query_term: this.movieId,
+        with_images: true
       }, movies => {
         onSuccess(movies[0]);
         self.spinner.hide();

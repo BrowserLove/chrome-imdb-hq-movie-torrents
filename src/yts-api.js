@@ -1,4 +1,5 @@
 let YTS = {};
+const YTS_URL = 'https://yts.mx';
 
 YTS.getMagnetUrl = (title, hash) => {
   const trackers = [
@@ -28,13 +29,15 @@ YTS.parseApiMovies = (movies = []) =>
     rating,
     year,
     yt_trailer_code: youtube,
-    torrents
+    torrents,
+    large_cover_image: image
   }) => ({
     title,
     year,
     imdbId,
     rating,
     youtube,
+    image,
     stream: 'https://www.google.com/search?q=' + encodeURIComponent('watch online ' + title) + '&btnI=Im+Feeling+Lucky',
     netflix: 'https://www.google.com/search?q=' + encodeURIComponent('netflix.com ' + title) + '&btnI=Im+Feeling+Lucky',
     torrents: torrents && torrents.length > 0 ? torrents.map(({
@@ -51,7 +54,7 @@ YTS.parseApiMovies = (movies = []) =>
 })) : [];
 
 YTS.fetchMovies = ($, qs = {}, cb) =>
-  $.getJSON(`https://yts.lt/api/v2/list_movies.jsonp?${$.param(qs)}`, response => {
+  $.getJSON(`${YTS_URL}/api/v2/list_movies.jsonp?${$.param(qs)}`, response => {
     cb(YTS.parseApiMovies(response.data.movies))
   })
 

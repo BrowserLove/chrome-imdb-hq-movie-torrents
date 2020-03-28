@@ -9,38 +9,44 @@ const YTS = require('./yts-api');
         minimum_rating: 6,
         limit: 50
       }, movies => {
-        const filteredMovies = movies.filter(movie => movie.year >= (new Date()).getFullYear() - 3).slice(0, 10);
-
+        const filteredMovies = movies.filter(movie => movie.year >= (new Date()).getFullYear() - 3).slice(0, 6);
         self.render(filteredMovies);
       })
     },
 
     render: function(movies){
-      var firstWidget = $('#sidebar').find('.aux-content-widget-2').first();
+      var firstWidget = $('.fan-picks').parent();
       var widget = firstWidget.clone();
-      var movieLink = widget.find('.rhs-row').first();
-      var movieLinkContainer = widget.find('.rhs-body').first();
-
       widget.find('h3').text('Latest HQ Torrents');
-      widget.find('h3').parent().attr('href', '#');
-      widget.find('p.seemore').remove();
-      widget.find('.rhs-row').remove();
+      widget.find('h3 + div').remove();
+      widget.find('.ipc-shoveler__arrow').hide();
 
-      movieLink.find('.title a').attr('href', window.location.protocol + '//' + window.location.hostname + '/title/');
-      movieLink.find('.ribbonize').remove();
-      movieLink.find('.action').remove();
+      var widgetChildren = widget.find('.ipc-sub-grid');
+      var widgetChild = widgetChildren.children().first().clone();
+      widgetChildren.empty();
 
       movies.map(function(movie) {
-        var newMovieLink = movieLink.clone();
+        var imdbRating = (Math.round(movie.rating * 10) / 10).toFixed(1);
+        var movieItem = widgetChild.clone();
+        var ratingStar = movieItem.find('.ipc-rating-star svg').clone();
 
-        var titleLink = newMovieLink.find('.title a');
-        titleLink.text(movie.title);
-        titleLink.attr('href', titleLink.attr('href') + movie.imdbId + '/');
-        titleLink.attr('target', '_blank');
-        titleLink.parent().addClass('with-ellipsis');
+        movieItem.find('.ipc-rating-star').empty().append(ratingStar).append($('<span>').text(imdbRating));
+        movieItem.find('.ipc-poster-card__actions').hide();
+        movieItem.find('.ipc-watchlist-ribbon').hide();
 
-        movieLinkContainer.append(newMovieLink);
-        titleLink.before($("<span class='chrome-imdb-rating'>" + (Math.round(movie.rating * 10) / 10).toFixed(1) + "</span>"));
+        var movieImage = movieItem.find('.ipc-image');
+        movieImage.attr('src', movie.image);
+        movieImage.removeAttr('srcset');
+
+        movieItem.html(movieItem.html()
+          .replace(/tt[0-9]{7,}/g, movie.imdbId)
+          .replace(movieImage.attr('alt'), movie.title)
+        );
+
+        movieItem.find('.ipc-poster-card__title').attr('aria-label', movie.title);
+        movieItem.find('.ipc-poster-card__title').text(movie.title);
+
+        widgetChildren.append(movieItem);
       });
 
       firstWidget.before(widget);
